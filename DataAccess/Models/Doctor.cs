@@ -20,5 +20,8 @@ namespace DataAccess.Models
         public string FirstName { get; set; }
         [MaxLength(15)]
         public string Phone { get; set; }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }
