@@ -1,6 +1,7 @@
 using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,8 @@ namespace MedicalPetClinic
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("SQLServer")));
+
+            services.AddIdentityCore<IdentityUser>();
 
             services.AddAutoMapper(typeof(AppointmentProfile));
 

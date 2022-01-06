@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public string Type { get; set; }
         public int Age { get; set; }
-        public int ClientId { get; set; }
+        public int UserId { get; set; }
     }
 }

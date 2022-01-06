@@ -10,10 +10,10 @@ namespace Services
 {
     public interface IPatientService
     {
-        List<PatientDto> GetAllByClientId(int clientId);
-        void AddPatient(int clientId, EditPatientDto patient);
-        void UpdatePatient(int clientId, int patientId, EditPatientDto patient);
-        void DeletePatient(int clientId, int patientId);
+        List<PatientDto> GetAllByUserId(int userId);
+        void AddPatient(int userId, EditPatientDto patient);
+        void UpdatePatient(int userId, int patientId, EditPatientDto patient);
+        void DeletePatient(int userId, int patientId);
     }
 
     public class PatientService : IPatientService
@@ -27,33 +27,33 @@ namespace Services
             _mapper = mapper;
         }
 
-        public List<PatientDto> GetAllByClientId(int clientId)
+        public List<PatientDto> GetAllByUserId(int userId)
         {
-            var dbPatients = _dbContext.Patients.Where(p => p.ClientId == clientId).ToList();
+            var dbPatients = _dbContext.Patients.Where(p => p.UserId == userId).ToList();
             return _mapper.Map<List<PatientDto>>(dbPatients);
         }
 
-        public void AddPatient(int clientId, EditPatientDto patient)
+        public void AddPatient(int userId, EditPatientDto patient)
         {
             var dbPatient = _mapper.Map<Patient>(patient);
-            dbPatient.ClientId = clientId;
+            dbPatient.UserId = userId;
 
             _dbContext.Patients.Add(dbPatient);
             _dbContext.SaveChanges();
         }
 
-        public void DeletePatient(int clientId, int patientId)
+        public void DeletePatient(int userId, int patientId)
         {
-            var dbPatient = _dbContext.Patients.First(x => x.Id == patientId && x.ClientId == clientId);
+            var dbPatient = _dbContext.Patients.First(x => x.Id == patientId && x.UserId == userId);
             _dbContext.Patients.Remove(dbPatient);
             _dbContext.SaveChanges();
         }
 
-        public void UpdatePatient(int clientId, int patientId, EditPatientDto patient)
+        public void UpdatePatient(int userId, int patientId, EditPatientDto patient)
         {
             var dbPatient = _dbContext.Patients.Find(patientId);
 
-            if (dbPatient.ClientId != clientId) throw new UnauthorizedException();
+            if (dbPatient.UserId != userId) throw new UnauthorizedException();
 
             _mapper.Map(patient, dbPatient);
             _dbContext.SaveChanges();

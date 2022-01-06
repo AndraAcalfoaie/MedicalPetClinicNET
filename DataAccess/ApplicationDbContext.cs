@@ -10,7 +10,7 @@ namespace DataAccess
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<Client> Clients { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<DoctorProcedure> DoctorProcedures { get; set; }
         public DbSet<DoctorSpecialization> DoctorSpecializations { get; set; }

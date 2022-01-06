@@ -12,9 +12,9 @@ namespace Services
     public interface IAppointmentService
     {
         List<Appointment> GetByDoctorId(int doctorId);
-        List<Appointment> GetByPatientId(int clientId, int patientId);
+        List<Appointment> GetByPatientId(int userId, int patientId);
         void AddAppointment(CreateAppointmentDto appointment);
-        void DeleteAppointment(int clientId, int appointmentId);
+        void DeleteAppointment(int userId, int appointmentId);
     }
 
     public class AppointmentService : IAppointmentService
@@ -35,10 +35,10 @@ namespace Services
             _dbContext.SaveChanges();
         }
 
-        public void DeleteAppointment(int clientId, int appointmentId)
+        public void DeleteAppointment(int userId, int appointmentId)
         {
             var appointment = _dbContext.Appointments.Find(appointmentId);
-            if (appointment.Patient.ClientId != clientId) throw new UnauthorizedException();
+            if (appointment.Patient.UserId != userId) throw new UnauthorizedException();
 
             _dbContext.Appointments.Remove(appointment);
             _dbContext.SaveChanges();
@@ -49,10 +49,10 @@ namespace Services
             return _dbContext.Appointments.Where(x => x.DoctorId == doctorId).ToList();
         }
 
-        public List<Appointment> GetByPatientId(int clientId, int patientId)
+        public List<Appointment> GetByPatientId(int userId, int patientId)
         {
             var patient = _dbContext.Patients.Find(patientId);
-            if (patient.ClientId != clientId) throw new UnauthorizedAccessException();
+            if (patient.UserId != userId) throw new UnauthorizedAccessException();
 
             return patient.Appointments.ToList();
         }

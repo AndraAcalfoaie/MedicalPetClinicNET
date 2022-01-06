@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
-    public class Client
+    public class User
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -22,6 +22,8 @@ namespace DataAccess.Models
         public string Phone { get; set; }
         [MaxLength(100)]
         public string Address { get; set; }
+
+        public string Password { get; set; }
         public ICollection<Patient> Patients { get; set; }
     }
 }
