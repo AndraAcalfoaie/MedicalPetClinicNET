@@ -11,7 +11,7 @@ namespace Services
     public interface IPatientService
     {
         List<PatientDto> GetAllByUserId(int userId);
-        void AddPatient(int userId, EditPatientDto patient);
+        int AddPatient(int userId, EditPatientDto patient);
         void UpdatePatient(int userId, int patientId, EditPatientDto patient);
         void DeletePatient(int userId, int patientId);
     }
@@ -33,13 +33,15 @@ namespace Services
             return _mapper.Map<List<PatientDto>>(dbPatients);
         }
 
-        public void AddPatient(int userId, EditPatientDto patient)
+        public int AddPatient(int userId, EditPatientDto patient)
         {
             var dbPatient = _mapper.Map<Patient>(patient);
             dbPatient.UserId = userId;
 
             _dbContext.Patients.Add(dbPatient);
             _dbContext.SaveChanges();
+
+            return dbPatient.Id;
         }
 
         public void DeletePatient(int userId, int patientId)

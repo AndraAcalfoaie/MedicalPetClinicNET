@@ -10,7 +10,7 @@ namespace Services
     public interface IDoctorService
     {
         List<DoctorDto> GetAll();
-        void Add(EditDoctorDto doctor);
+        int Add(EditDoctorDto doctor);
         void Update(int doctorId, EditDoctorDto doctor);
         void Detele(int doctorId);
     }
@@ -26,11 +26,13 @@ namespace Services
             _dbContext = dbContext;
         }
 
-        public void Add(EditDoctorDto doctor)
+        public int Add(EditDoctorDto doctor)
         {
             var dbDoctor = _mapper.Map<Doctor>(doctor);
             _dbContext.Doctors.Add(dbDoctor);
             _dbContext.SaveChanges();
+
+            return dbDoctor.Id;
         }
 
         public void Detele(int doctorId)

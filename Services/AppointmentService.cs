@@ -13,7 +13,7 @@ namespace Services
     {
         List<Appointment> GetByDoctorId(int doctorId);
         List<Appointment> GetByPatientId(int userId, int patientId);
-        void AddAppointment(CreateAppointmentDto appointment);
+        int AddAppointment(CreateAppointmentDto appointment);
         void DeleteAppointment(int userId, int appointmentId);
     }
 
@@ -28,11 +28,13 @@ namespace Services
             _mapper = mapper;
         }
 
-        public void AddAppointment(CreateAppointmentDto appointment)
+        public int AddAppointment(CreateAppointmentDto appointment)
         {
             var dbAppointment = _mapper.Map<Appointment>(appointment);
             _dbContext.Add(dbAppointment);
             _dbContext.SaveChanges();
+
+            return dbAppointment.Id;
         }
 
         public void DeleteAppointment(int userId, int appointmentId)
