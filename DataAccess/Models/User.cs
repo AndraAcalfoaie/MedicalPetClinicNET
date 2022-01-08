@@ -23,6 +23,8 @@ namespace DataAccess.Models
         public string Phone { get; set; }
         [MaxLength(100)]
         public string Address { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
 
         public string Password { get; set; }
         public ICollection<Patient> Patients { get; set; }
