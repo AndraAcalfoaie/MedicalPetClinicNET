@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Services;
 using Services.Mappers;
 
 namespace MedicalPetClinic
@@ -33,6 +34,11 @@ namespace MedicalPetClinic
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MedicalPetClinic", Version = "v1" });
             });
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<IPatientService, PatientService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

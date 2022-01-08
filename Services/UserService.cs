@@ -9,7 +9,7 @@ namespace Services
 {
     public interface IUserService
     {
-        int Register(RegisterUserDto user);
+        LoginUserDto Register(RegisterUserDto user);
         LoginUserDto Login(string email, string password);
     }
 
@@ -33,7 +33,7 @@ namespace Services
             return _mapper.Map<LoginUserDto>(dbUser);
         }
 
-        public int Register(RegisterUserDto user)
+        public LoginUserDto Register(RegisterUserDto user)
         {
             if (_dbContext.Users.Any(u => u.Email == user.Email))
                 throw new ValidationException("Email already used");
@@ -42,7 +42,7 @@ namespace Services
             _dbContext.Users.Add(dbUser);
             _dbContext.SaveChanges();
 
-            return dbUser.Id;
+            return _mapper.Map<LoginUserDto>(dbUser);
         }
     }
 }
