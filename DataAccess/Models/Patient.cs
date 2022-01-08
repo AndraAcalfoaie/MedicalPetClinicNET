@@ -20,8 +20,8 @@ namespace DataAccess.Models
         public int Age { get; set; }
 
         public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
-        public ICollection<Appointment> Appointments { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
     }
 }

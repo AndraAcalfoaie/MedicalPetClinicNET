@@ -18,8 +18,8 @@ namespace DataAccess.Models
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
 
-        public Doctor Doctor { get; set; }
-        public Patient Patient { get; set; }
-        public Procedure Procedure { get; set; }
+        public virtual Doctor Doctor { get; set; }
+        public virtual Patient Patient { get; set; }
+        public virtual Procedure Procedure { get; set; }
     }
 }

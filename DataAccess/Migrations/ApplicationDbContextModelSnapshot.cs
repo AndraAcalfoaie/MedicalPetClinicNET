@@ -333,7 +333,7 @@ namespace DataAccess.Migrations
                     b.HasOne("DataAccess.Models.User", "User")
                         .WithMany("Patients")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");

@@ -25,8 +25,8 @@ namespace DataAccess.Models
         public string Address { get; set; }
         [EmailAddress]
         public string Email { get; set; }
-
         public string Password { get; set; }
-        public ICollection<Patient> Patients { get; set; }
+
+        public virtual ICollection<Patient> Patients { get; set; }
     }
 }

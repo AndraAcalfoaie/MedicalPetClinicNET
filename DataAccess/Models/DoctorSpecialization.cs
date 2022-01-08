@@ -15,7 +15,7 @@ namespace DataAccess.Models
         public int DoctorId { get; set; }
         public int SpecializationId { get; set; }
 
-        public Doctor Doctor { get; set; }
-        public Specialization Specialization { get; set; }
+        public virtual Doctor Doctor { get; set; }
+        public virtual Specialization Specialization { get; set; }
     }
 }

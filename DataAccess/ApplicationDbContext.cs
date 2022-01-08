@@ -21,5 +21,10 @@ namespace DataAccess
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Patient>().HasOne(p => p.User).WithMany(u => u.Patients).OnDelete(DeleteBehavior.NoAction);
+        }
     }
 }
