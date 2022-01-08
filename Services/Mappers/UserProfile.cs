@@ -14,6 +14,7 @@ namespace Services.Mappers
         public UserProfile()
         {
             CreateMap<RegisterUserDto, User>();
+            CreateMap<User, LoginUserDto>();
         }
     }
 }

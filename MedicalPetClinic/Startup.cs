@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Services;
 using Services.Mappers;
+using WebAPI.Filters;
 
 namespace MedicalPetClinic
 {
@@ -29,7 +30,12 @@ namespace MedicalPetClinic
 
             services.AddAutoMapper(typeof(AppointmentProfile));
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(new ValidationExceptionFilter());
+                options.Filters.Add(new UnauthorizedExceptionFilter());
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MedicalPetClinic", Version = "v1" });

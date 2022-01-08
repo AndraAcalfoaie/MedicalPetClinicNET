@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Services.Exceptions
 {
-    class UnauthorizedException : Exception
+    public class UnauthorizedException : Exception
     {
     }
 }
