@@ -10,7 +10,7 @@ namespace Services
     public interface IUserService
     {
         LoginUserDto Register(RegisterUserDto user);
-        LoginUserDto Login(string email, string password);
+        LoginUserDto Login(LoginModelDto loginModel);
     }
 
     public class UserService : IUserService
@@ -24,9 +24,9 @@ namespace Services
             _mapper = mapper;
         }
 
-        public LoginUserDto Login(string email, string password)
+        public LoginUserDto Login(LoginModelDto loginModel)
         {
-            var dbUser = _dbContext.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            var dbUser = _dbContext.Users.FirstOrDefault(u => u.Email == loginModel.Email && u.Password == loginModel.Password);
             if (dbUser is null)
                 throw new ValidationException("Invalid email or password");
 

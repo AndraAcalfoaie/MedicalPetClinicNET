@@ -23,9 +23,11 @@ namespace MedicalPetClinic.Controllers
         }
 
         [HttpPost("Login")]
-        public ActionResult<LoginUserDto> Login([FromBody] string email, [FromBody] string password)
+        public ActionResult<LoginUserDto> Login([FromBody] LoginModelDto loginModel)
         {
-            return _userService.Login(email, password);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            return _userService.Login(loginModel);
         }
 
 
