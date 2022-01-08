@@ -65,6 +65,7 @@ namespace MedicalPetClinic
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IDoctorService, DoctorService>();
             services.AddScoped<IPatientService, PatientService>();
+            services.AddScoped<IProcedureService, ProcedureService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

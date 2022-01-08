@@ -11,10 +11,12 @@ namespace WebAPI.Controllers
     public class DoctorController : ControllerBase
     {
         private readonly IDoctorService _doctorService;
+        private readonly IProcedureService _procedureService;
 
-        public DoctorController(IDoctorService doctorService)
+        public DoctorController(IDoctorService doctorService, IProcedureService procedureService)
         {
             _doctorService = doctorService;
+            _procedureService = procedureService;
         }
 
         [HttpGet]
@@ -51,6 +53,12 @@ namespace WebAPI.Controllers
             _doctorService.Detele(doctorId);
 
             return Ok();
+        }
+
+        [HttpGet("Procedures")]
+        public List<ProcedureDto> GetProcedures()
+        {
+            return _procedureService.GetAll();
         }
     }
 }
