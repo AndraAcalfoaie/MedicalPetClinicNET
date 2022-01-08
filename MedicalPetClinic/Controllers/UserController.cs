@@ -14,12 +14,10 @@ namespace MedicalPetClinic.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly ILogger<WeatherForecastController> _logger;
 
-        public UserController(IUserService userService, ILogger<WeatherForecastController> logger)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            _logger = logger;
         }
 
         [HttpPost("Login")]
