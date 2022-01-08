@@ -23,5 +23,7 @@ namespace DataAccess.Models
 
         public int UserId { get; set; }
         public virtual User User { get; set; }
+
+        public virtual ICollection<Appointment> Appointments { get; set; }
     }
 }

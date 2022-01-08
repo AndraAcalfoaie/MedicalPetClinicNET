@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services;
+using Services.Models.Appointment;
 using Services.Models.Doctor;
 using System.Collections.Generic;
 using WebAPI.Filters;
+using WebAPI.Helpers;
 
 namespace WebAPI.Controllers
 {
@@ -12,11 +14,13 @@ namespace WebAPI.Controllers
     {
         private readonly IDoctorService _doctorService;
         private readonly IProcedureService _procedureService;
+        private readonly IAppointmentService _appointmentService;
 
-        public DoctorController(IDoctorService doctorService, IProcedureService procedureService)
+        public DoctorController(IDoctorService doctorService, IProcedureService procedureService, IAppointmentService appointmentService)
         {
             _doctorService = doctorService;
             _procedureService = procedureService;
+            _appointmentService = appointmentService;
         }
 
         [HttpGet]
@@ -59,6 +63,19 @@ namespace WebAPI.Controllers
         public List<ProcedureDto> GetProcedures()
         {
             return _procedureService.GetAll();
+        }
+
+        [HttpGet("{doctorId}/Schedule")]
+        public DoctorSchedule GetDoctorSchedule([FromRoute] int doctorId)
+        {
+            return _appointmentService.GetDoctorSchedule(doctorId);
+        }
+
+        [HttpGet("{doctorId}/Appointments")]
+        public List<AppointmentDto> GetDoctorAppointments([FromRoute] int doctorId)
+        {
+            var userId = HttpContext.GetUserId();
+            return _appointmentService.GetByDoctorId(userId, doctorId);
         }
     }
 }

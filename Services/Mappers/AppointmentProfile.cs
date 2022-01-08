@@ -9,6 +9,7 @@ namespace Services.Mappers
         public AppointmentProfile()
         {
             CreateMap<CreateAppointmentDto, Appointment>();
+            CreateMap<Appointment, AppointmentDto>();
         }
     }
 }

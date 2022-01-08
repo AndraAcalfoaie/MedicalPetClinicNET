@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using Services.Models.Appointment;
 using Services.Models.Patient;
 using System.Collections.Generic;
 using WebAPI.Filters;
@@ -13,10 +14,12 @@ namespace WebAPI.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IPatientService _patientService;
+        private readonly IAppointmentService _appointmentService;
 
-        public PatientController(IPatientService patientService)
+        public PatientController(IPatientService patientService, IAppointmentService appointmentService)
         {
             _patientService = patientService;
+            _appointmentService = appointmentService;
         }
 
         [Authorize]
@@ -59,6 +62,13 @@ namespace WebAPI.Controllers
             _patientService.DeletePatient(userId, patientId);
 
             return Ok();
+        }
+
+        [HttpGet("{patientId}/Appointments")]
+        public List<AppointmentDto> GetPatientAppointments([FromRoute] int patientId)
+        {
+            var userId = HttpContext.GetUserId();
+            return _appointmentService.GetByPatientId(userId, patientId);
         }
     }
 }
