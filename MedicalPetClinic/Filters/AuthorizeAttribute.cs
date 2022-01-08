@@ -2,23 +2,25 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAPI.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
+        public bool IsAdmin { get; set; } = false;
+
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var user = (User)context.HttpContext.Items["User"];
             if (user == null)
             {
-                // not logged in
                 context.Result = new UnauthorizedResult();
+                return;
             }
+
+            if (IsAdmin && !user.IsAdmin)
+                context.Result = new UnauthorizedResult();
         }
     }
 }
