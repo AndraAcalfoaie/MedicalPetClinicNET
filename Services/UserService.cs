@@ -18,6 +18,7 @@ namespace Services
     {
         AuthenticateResponse Register(RegisterUserDto user);
         AuthenticateResponse Login(LoginModelDto loginModel);
+        User GetById(int userId);
     }
 
     public class UserService : IUserService
@@ -61,6 +62,8 @@ namespace Services
 
             return loginResult;
         }
+
+        public User GetById(int userId) => _dbContext.Users.Find(userId);
 
         private string GenerateJwtToken(User user)
         {

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Filters;
 
 namespace MedicalPetClinic.Controllers
 {
@@ -35,6 +36,13 @@ namespace MedicalPetClinic.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             return _userService.Register(user);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Test()
+        {
+            return Ok("Authorized");
         }
     }
 }
