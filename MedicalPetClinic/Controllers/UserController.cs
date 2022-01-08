@@ -21,7 +21,7 @@ namespace MedicalPetClinic.Controllers
         }
 
         [HttpPost("Login")]
-        public ActionResult<LoginUserDto> Login([FromBody] LoginModelDto loginModel)
+        public ActionResult<AuthenticateResponse> Login([FromBody] LoginModelDto loginModel)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -30,7 +30,7 @@ namespace MedicalPetClinic.Controllers
 
 
         [HttpPost("Register")]
-        public ActionResult<LoginUserDto> Register([FromBody] RegisterUserDto user)
+        public ActionResult<AuthenticateResponse> Register([FromBody] RegisterUserDto user)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 

@@ -1,6 +1,6 @@
 ﻿namespace Services.Models.User
 {
-    public class LoginUserDto
+    public class AuthenticateResponse
     {
         public int Id { get; set; }
         public string LastName { get; set; }

@@ -16,8 +16,8 @@ namespace Services
 {
     public interface IUserService
     {
-        LoginUserDto Register(RegisterUserDto user);
-        LoginUserDto Login(LoginModelDto loginModel);
+        AuthenticateResponse Register(RegisterUserDto user);
+        AuthenticateResponse Login(LoginModelDto loginModel);
     }
 
     public class UserService : IUserService
@@ -33,19 +33,19 @@ namespace Services
             _configuration = configuration;
         }
 
-        public LoginUserDto Login(LoginModelDto loginModel)
+        public AuthenticateResponse Login(LoginModelDto loginModel)
         {
             var dbUser = _dbContext.Users.FirstOrDefault(u => u.Email == loginModel.Email && u.Password == loginModel.Password);
             if (dbUser is null)
                 throw new ValidationException("Invalid email or password");
 
-            var loginResult = _mapper.Map<LoginUserDto>(dbUser);
+            var loginResult = _mapper.Map<AuthenticateResponse>(dbUser);
             loginResult.JwtToken = GenerateJwtToken(dbUser);
 
             return loginResult;
         }
 
-        public LoginUserDto Register(RegisterUserDto user)
+        public AuthenticateResponse Register(RegisterUserDto user)
         {
             if (_dbContext.Users.Any(u => u.Email == user.Email))
                 throw new ValidationException("Email already used");
@@ -56,7 +56,7 @@ namespace Services
             _dbContext.Users.Add(dbUser);
             _dbContext.SaveChanges();
 
-            var loginResult = _mapper.Map<LoginUserDto>(dbUser);
+            var loginResult = _mapper.Map<AuthenticateResponse>(dbUser);
             loginResult.JwtToken = GenerateJwtToken(dbUser);
 
             return loginResult;
