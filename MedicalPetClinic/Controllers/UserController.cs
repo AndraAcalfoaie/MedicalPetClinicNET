@@ -37,19 +37,5 @@ namespace MedicalPetClinic.Controllers
 
             return _userService.Register(user);
         }
-
-        [Authorize]
-        [HttpGet("Test")]
-        public IActionResult Test()
-        {
-            return Ok("Authorized");
-        }
-
-        [Authorize(IsAdmin = true)]
-        [HttpGet("TestAdmin")]
-        public IActionResult TestAdmin()
-        {
-            return Ok("Authorized as admin");
-        }
     }
 }

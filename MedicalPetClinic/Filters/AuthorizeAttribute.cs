@@ -13,7 +13,7 @@ namespace WebAPI.Filters
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var user = (User)context.HttpContext.Items["User"];
-            if (user == null)
+            if (user is null)
             {
                 context.Result = new UnauthorizedResult();
                 return;
